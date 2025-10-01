@@ -1,15 +1,15 @@
-FROM node:22-alpine as build
+FROM node:22-alpine
 
 WORKDIR /app
 
 COPY frontend/package*.json ./
 RUN npm install
 
-COPY frontend ./
-RUN npm run build
-
-FROM nginx:alpine
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY frontend/ ./
 COPY docker/frontend/nginx.conf /etc/nginx/conf.d/default.conf
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+COPY docker/frontend/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+EXPOSE 5173 80
+
+ENTRYPOINT ["/entrypoint.sh"]

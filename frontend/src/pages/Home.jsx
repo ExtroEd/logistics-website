@@ -12,7 +12,7 @@ function Home() {
           <div className="header__wrapper">
 
             <div className="header__logo">
-              <h1>Логистика</h1>
+              <h1>Лого</h1>
             </div>
 
             <div className="header__text"></div>
